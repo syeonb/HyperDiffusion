@@ -23,6 +23,8 @@ import ldm.ldm.modules.diffusionmodules.openaimodel
 import wandb
 from transformer import Transformer
 
+torch.cuda.empty_cache()
+
 sys.path.append("siren")
 
 
@@ -160,7 +162,7 @@ def main(cfg: DictConfig):
             train_dt,
             batch_size=Config.get("batch_size"),
             shuffle=True,
-            num_workers=8,
+            num_workers=19,
             pin_memory=True,
         )
         val_dt = WeightDataset(
@@ -187,16 +189,16 @@ def main(cfg: DictConfig):
             dataset_path, wandb_logger, model.dims, mlp_kwargs, cfg, train_object_names
         )
         train_dl = DataLoader(
-            train_dt, batch_size=Config.get("batch_size"), shuffle=True, num_workers=2
+            train_dt, batch_size=Config.get("batch_size"), shuffle=True, num_workers=19
         )
 
     # These two dl's are just placeholders, during val and test evaluation we are looking at test_split.lst,
     # val_split.lst files, inside calc_metrics methods
     val_dl = DataLoader(
-        torch.utils.data.Subset(train_dt, [0]), batch_size=1, shuffle=False
+        torch.utils.data.Subset(train_dt, [0]), batch_size=1, shuffle=False, num_workers=19
     )
     test_dl = DataLoader(
-        torch.utils.data.Subset(train_dt, [0]), batch_size=1, shuffle=False
+        torch.utils.data.Subset(train_dt, [0]), batch_size=1, shuffle=False, num_workers=19
     )
 
     print(

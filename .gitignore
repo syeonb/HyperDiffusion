@@ -141,3 +141,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# data
+data/02691156_2048_pc/
+mlp_weights/3d_128_plane_multires_4_manifoldplus_slower_no_clipgrad.zip
+mlp_weights/3d_128_plane_multires_4_manifoldplus_slower_no_clipgrad/
